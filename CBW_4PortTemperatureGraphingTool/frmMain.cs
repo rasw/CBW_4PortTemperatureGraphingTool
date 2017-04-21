@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using AkvaData;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.IO;
+using System.Collections;
 
 namespace CBW_4PortTemperatureGraphingTool
 {
@@ -22,7 +23,8 @@ namespace CBW_4PortTemperatureGraphingTool
 
         string selectedFileFullPath = null;
         string selectedRootFolder = null;
-        List<string> coreFileData = new List<string>();
+        //List<string> coreFileData = new List<string>();
+        bool showGradBackground = true;
 
         enum FilterPeriod : int
         {
@@ -110,10 +112,14 @@ namespace CBW_4PortTemperatureGraphingTool
             }
         }
 
-        void DrawGraph()
+        void DrawGraph(List<string> coreDataLines, int XAxisLabelPeriod)
         {
             try
             {
+                GetCBWMinMaxValues gmm = new GetCBWMinMaxValues();
+                double maxValue = gmm.GetMax(coreDataLines);
+                double minValue = gmm.GetMin(coreDataLines);
+
                 var series1 = new Series
                 {
                     Name = "Sensor1", Color = Color.Red, IsVisibleInLegend = true, IsXValueIndexed = true, ChartType = SeriesChartType.Line
@@ -135,25 +141,96 @@ namespace CBW_4PortTemperatureGraphingTool
                 };
 
                 chart1.Series.Clear();
-               
+
+                chart1.Series.Add("Sensor1");
+                chart1.Series.Add("Sensor2");
+                chart1.Series.Add("Sensor3");
+                chart1.Series.Add("Sensor4");
+
+                chart1.Series["Sensor1"].BorderWidth = 2;
+                chart1.Series["Sensor2"].BorderWidth = 2;
+                chart1.Series["Sensor3"].BorderWidth = 2;
+                chart1.Series["Sensor4"].BorderWidth = 2;
+
+                chart1.ChartAreas[0].AxisX.LabelStyle.Interval = XAxisLabelPeriod;
+                chart1.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Verdana", 10, FontStyle.Regular);    // set font style for Y axis values
+                chart1.ChartAreas[0].AxisY.LabelStyle.Format = "{0.00}";    // Format Y axis to 2 decimal places.
+
+                this.chart1.ChartAreas["ChartArea1"].CursorX.IsUserEnabled = true;
+                //this.chart1.ChartAreas["ChartArea1"].CursorY.IsUserEnabled = true;
+                this.chart1.ChartAreas["ChartArea1"].CursorX.IsUserSelectionEnabled = true;
+                // this.chart1.ChartAreas["ChartArea1"].CursorY.IsUserSelectionEnabled = true;
+                this.chart1.ChartAreas["ChartArea1"].AxisX.ScaleView.Zoomable = true;
+                //this.chart1.ChartAreas["ChartArea1"].AxisY.ScaleView.Zoomable = true;
+                this.chart1.ChartAreas["ChartArea1"].AxisX.ScrollBar.IsPositionedInside = true;
+                //this.chart1.ChartAreas["ChartArea1"].AxisY.ScrollBar.IsPositionedInside = true;
+
+                if (showGradBackground)
+                {
+                    chart1.ChartAreas[0].BackGradientStyle = GradientStyle.TopBottom;
+                    chart1.ChartAreas[0].BackColor = Color.FromArgb(100, 255, 255, 255);
+                    chart1.ChartAreas[0].BackSecondaryColor = Color.FromArgb(130, 220, 220, 250);
+                }
+                else
+                {
+                    chart1.ChartAreas[0].BackGradientStyle = GradientStyle.TopBottom;
+                    chart1.ChartAreas[0].BackColor = Color.FromArgb(255, 255, 255, 255);
+                    chart1.ChartAreas[0].BackSecondaryColor = Color.FromArgb(255, 255, 255, 255);
+                }
+
+                chart1.ChartAreas["ChartArea1"].AxisY.Minimum = minValue - 0.2;
+                chart1.ChartAreas["ChartArea1"].AxisY.Maximum = maxValue + 0.2;
+
+                chart1.Series["Sensor1"].ChartType = SeriesChartType.Line;
+                chart1.Series["Sensor2"].ChartType = SeriesChartType.Line;
+                chart1.Series["Sensor3"].ChartType = SeriesChartType.Line;
+                chart1.Series["Sensor4"].ChartType = SeriesChartType.Line;
+
+
+                // 18/04/2017 10:50:19|19.5|19.2|19.7|19.4
+                ArrayList splitData = new ArrayList();
+
+                foreach (var line in coreDataLines)
+                {
+                    string[] d = line.Split('|');
+                    splitData.Add(d[0]);        // Reading DateTime
+                    splitData.Add(d[1]);        // Sensor 1 Reading
+                    splitData.Add(d[2]);        // Sensor 2 Reading
+                    splitData.Add(d[3]);        // Sensor 3 Reading
+                    splitData.Add(d[4]);        // Sensor 4 Reading
+
+                    string[] dt = d[0].Split(' ');
+
+                    chart1.Series["Sensor1"].Points.AddXY(dt[1], d[1]);
+                    chart1.Series["Sensor2"].Points.AddXY(dt[1], d[2]);
+                    chart1.Series["Sensor3"].Points.AddXY(dt[1], d[3]);
+                    chart1.Series["Sensor4"].Points.AddXY(dt[1], d[4]);
+                }
+
+                chart1.Invalidate();  // draw chart
 
             }
             catch (Exception ex)
             {
-
+                Logger.WriteToLog("DrawGraph -> " + ex.Message);
             }
         }
 
         private void cmbDataFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             selectedFileFullPath = Path.Combine(selectedRootFolder, cmbDataFiles.Text);
-
             LoadCoreFileData(selectedFileFullPath);
         }
 
         private void LoadCoreFileData(string selectedFileFullPath)
         {
-           
+            // Read all the data lines into memory
+            //    List<string> coreFileData = new List<string>();
+
+            // 18/04/2017 10:50:19|19.5|19.2|19.7|19.4
+            var dataFile = File.ReadAllLines(selectedFileFullPath);      // read logfile lines into a list
+            List<string> coreFileData = new List<string>(dataFile);
+            DrawGraph(coreFileData,20);
         }
 
         private void rdoFilterAllData_Click(object sender, EventArgs e)
