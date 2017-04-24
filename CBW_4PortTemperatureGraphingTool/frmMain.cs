@@ -23,8 +23,11 @@ namespace CBW_4PortTemperatureGraphingTool
 
         string selectedFileFullPath = null;
         string selectedRootFolder = null;
-        //List<string> coreFileData = new List<string>();
+        List<string> coreFileData;
         bool showGradBackground = true;
+        bool timerRunning = false;
+
+        Timer rollingMins;
 
         enum FilterPeriod : int
         {
@@ -46,24 +49,26 @@ namespace CBW_4PortTemperatureGraphingTool
         };  //**
 
 
-        private DateTime GetFilterDateTime(DateTime lastLineDT, DateTime FirstLineDT)
+        private DateTime GetFilterFromDateTime()
         {
-            DateTime dtFilter = FirstLineDT;
-            if (rdoFilterAllData.Checked) { dtFilter = FirstLineDT; }
-            if (rdoFilterLast6hrs.Checked) { dtFilter = lastLineDT.AddHours(-6); }
-            if (rdoFilterLast12hrs.Checked) { dtFilter = lastLineDT.AddHours(-12); }
-            if (rdoFilterLast24hrs.Checked) { dtFilter = lastLineDT.AddDays(-1); }
-            if (rdoFilterLast2days.Checked) { dtFilter = lastLineDT.AddDays(-2); }
-            if (rdoFilterLast5days.Checked) { dtFilter = lastLineDT.AddDays(-5); }
-            if (rdoFilterLast7days.Checked) { dtFilter = lastLineDT.AddDays(-7); }
-            if (rdoFilterLast2weeks.Checked) { dtFilter = lastLineDT.AddDays(-14); }
-            if (rdoFilterLast3weeks.Checked) { dtFilter = lastLineDT.AddDays(-21); }
-            if (rdoFilterLastMonth.Checked) { dtFilter = lastLineDT.AddMonths(-1); }
-            if (rdoFilterLast2Months.Checked) { dtFilter = lastLineDT.AddMonths(-2); }
-            if (rdoFilterLast3Months.Checked) { dtFilter = lastLineDT.AddMonths(-3); }
-            if (rdoFilterLast4Months.Checked) { dtFilter = lastLineDT.AddMonths(-4); }
-            if (rdoFilterLast5Months.Checked) { dtFilter = lastLineDT.AddMonths(-5); }
-            if (rdoFilterLast6Months.Checked) { dtFilter = lastLineDT.AddMonths(-6); }
+            DateTime dtNow = DateTime.Now;
+            DateTime dtFilter = DateTime.Now.AddYears(-10);
+
+            if (rdoFilterAllData.Checked) { dtFilter = dtNow.AddYears(-10); }
+            if (rdoFilterLast6hrs.Checked) { dtFilter = dtNow.AddHours(-6); }
+            if (rdoFilterLast12hrs.Checked) { dtFilter = dtNow.AddHours(-12); }
+            if (rdoFilterLast24hrs.Checked) { dtFilter = dtNow.AddDays(-1); }
+            if (rdoFilterLast2days.Checked) { dtFilter = dtNow.AddDays(-2); }
+            if (rdoFilterLast5days.Checked) { dtFilter = dtNow.AddDays(-5); }
+            if (rdoFilterLast7days.Checked) { dtFilter = dtNow.AddDays(-7); }
+            if (rdoFilterLast2weeks.Checked) { dtFilter = dtNow.AddDays(-14); }
+            if (rdoFilterLast3weeks.Checked) { dtFilter = dtNow.AddDays(-21); }
+            if (rdoFilterLastMonth.Checked) { dtFilter = dtNow.AddMonths(-1); }
+            if (rdoFilterLast2Months.Checked) { dtFilter = dtNow.AddMonths(-2); }
+            if (rdoFilterLast3Months.Checked) { dtFilter = dtNow.AddMonths(-3); }
+            if (rdoFilterLast4Months.Checked) { dtFilter = dtNow.AddMonths(-4); }
+            if (rdoFilterLast5Months.Checked) { dtFilter = dtNow.AddMonths(-5); }
+            if (rdoFilterLast6Months.Checked) { dtFilter = dtNow.AddMonths(-6); }
 
             return dtFilter;
         }
@@ -79,6 +84,17 @@ namespace CBW_4PortTemperatureGraphingTool
         private void frmMain_Load(object sender, EventArgs e)
         {
             LoadSettings();
+
+            rollingMins = new Timer();
+            rollingMins.Tick += RollingMins_Tick;
+            rollingMins.Interval = 60000;
+            rollingMins.Stop();
+        }
+
+        private void RollingMins_Tick(object sender, EventArgs e)
+        {
+            DateTime halfHourAgo = DateTime.Now.AddHours(-1);
+            DrawGraph(coreFileData, (int)FilterPeriod.SixHrs, halfHourAgo, DateTime.Now);
         }
 
         private void btnDataFolderBrowse_Click(object sender, EventArgs e)
@@ -112,7 +128,7 @@ namespace CBW_4PortTemperatureGraphingTool
             }
         }
 
-        void DrawGraph(List<string> coreDataLines, int XAxisLabelPeriod)
+        void DrawGraph(List<string> coreDataLines, int XAxisLabelPeriod, DateTime GraphFromDT, DateTime GraphToDT)
         {
             try
             {
@@ -178,8 +194,8 @@ namespace CBW_4PortTemperatureGraphingTool
                     chart1.ChartAreas[0].BackSecondaryColor = Color.FromArgb(255, 255, 255, 255);
                 }
 
-                chart1.ChartAreas["ChartArea1"].AxisY.Minimum = minValue - 0.2;
-                chart1.ChartAreas["ChartArea1"].AxisY.Maximum = maxValue + 0.2;
+                chart1.ChartAreas["ChartArea1"].AxisY.Minimum = minValue - 0.1;
+                chart1.ChartAreas["ChartArea1"].AxisY.Maximum = maxValue + 0.1;
 
                 chart1.Series["Sensor1"].ChartType = SeriesChartType.Line;
                 chart1.Series["Sensor2"].ChartType = SeriesChartType.Line;
@@ -190,6 +206,8 @@ namespace CBW_4PortTemperatureGraphingTool
                 // 18/04/2017 10:50:19|19.5|19.2|19.7|19.4
                 ArrayList splitData = new ArrayList();
 
+                // void DrawGraph(List<string> coreDataLines, int XAxisLabelPeriod, DateTime GraphFromDT, DateTime GraphToDT)
+
                 foreach (var line in coreDataLines)
                 {
                     string[] d = line.Split('|');
@@ -199,16 +217,18 @@ namespace CBW_4PortTemperatureGraphingTool
                     splitData.Add(d[3]);        // Sensor 3 Reading
                     splitData.Add(d[4]);        // Sensor 4 Reading
 
-                    string[] dt = d[0].Split(' ');
+                    if (Convert.ToDateTime(d[0]) >= GraphFromDT && Convert.ToDateTime(d[0]) <= GraphToDT)
+                    {
+                        string[] dt = d[0].Split(' ');
 
-                    chart1.Series["Sensor1"].Points.AddXY(dt[1], d[1]);
-                    chart1.Series["Sensor2"].Points.AddXY(dt[1], d[2]);
-                    chart1.Series["Sensor3"].Points.AddXY(dt[1], d[3]);
-                    chart1.Series["Sensor4"].Points.AddXY(dt[1], d[4]);
+                        chart1.Series["Sensor1"].Points.AddXY(dt[1], d[1]);
+                        chart1.Series["Sensor2"].Points.AddXY(dt[1], d[2]);
+                        chart1.Series["Sensor3"].Points.AddXY(dt[1], d[3]);
+                        chart1.Series["Sensor4"].Points.AddXY(dt[1], d[4]); 
+                    }
                 }
 
                 chart1.Invalidate();  // draw chart
-
             }
             catch (Exception ex)
             {
@@ -220,6 +240,8 @@ namespace CBW_4PortTemperatureGraphingTool
         {
             selectedFileFullPath = Path.Combine(selectedRootFolder, cmbDataFiles.Text);
             LoadCoreFileData(selectedFileFullPath);
+            btnRollingGraph.Enabled = true;
+            btnRefresh.Enabled = true;
         }
 
         private void LoadCoreFileData(string selectedFileFullPath)
@@ -229,83 +251,113 @@ namespace CBW_4PortTemperatureGraphingTool
 
             // 18/04/2017 10:50:19|19.5|19.2|19.7|19.4
             var dataFile = File.ReadAllLines(selectedFileFullPath);      // read logfile lines into a list
-            List<string> coreFileData = new List<string>(dataFile);
-            DrawGraph(coreFileData,20);
+            //List<string> coreFileData = new List<string>(dataFile);
+            coreFileData = new List<string>(dataFile);
+            DrawGraph(coreFileData, 20, DateTime.Now.AddYears(-10), DateTime.Now);
         }
 
         private void rdoFilterAllData_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int)FilterPeriod.All ,from,DateTime.Now);
         }
 
         private void rdoFilterLast6hrs_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int) FilterPeriod.SixHrs, from, DateTime.Now);
         }
 
         private void rdoFilterLast12hrs_Click(object sender, EventArgs e)
         {
-
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int)FilterPeriod.TweleveHrs, from, DateTime.Now);
         }
 
         private void rdoFilterLast24hrs_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData,(int)FilterPeriod.TwentyFourHrs, from, DateTime.Now);
         }
 
         private void rdoFilterLast2days_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData,(int)FilterPeriod.TwoDays, from, DateTime.Now);
         }
 
         private void rdoFilterLast5days_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int) FilterPeriod.FiveDays, from, DateTime.Now);
         }
 
         private void rdoFilterLast7days_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int)FilterPeriod.SevenDays, from, DateTime.Now);
         }
 
         private void rdoFilterLast2weeks_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int) FilterPeriod.TwoWeeks, from, DateTime.Now);
         }
 
         private void rdoFilterLast3weeks_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int)FilterPeriod.ThreeWeeks, from, DateTime.Now);
         }
 
         private void rdoFilterLastMonth_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int)FilterPeriod.OneMonth, from, DateTime.Now);
         }
 
         private void rdoFilterLast2Months_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int)FilterPeriod.TwoMonths, from, DateTime.Now);
         }
 
         private void rdoFilterLast3Months_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int)FilterPeriod.ThreeMonths, from, DateTime.Now);
         }
 
         private void rdoFilterLast4Months_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int)FilterPeriod.FourMonths, from, DateTime.Now);
         }
 
         private void rdoFilterLast5Months_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int)FilterPeriod.FiveMonths, from, DateTime.Now);
         }
 
         private void rdoFilterLast6Months_Click(object sender, EventArgs e)
         {
-
+            rollingMins.Stop();
+            DateTime from = GetFilterFromDateTime();
+            DrawGraph(coreFileData, (int)FilterPeriod.SixMonths, from, DateTime.Now);
         }
 
         private void btnResetGraph_Click(object sender, EventArgs e)
@@ -352,6 +404,29 @@ namespace CBW_4PortTemperatureGraphingTool
         }
 
         private void rdoFilterAllData_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRollingGraph_Click(object sender, EventArgs e)
+        {
+            timerRunning = !timerRunning;
+
+            if (timerRunning)
+            {
+                rollingMins.Start();
+                btnRollingGraph.Text = "Stop Rolling Chart";
+                Application.DoEvents();
+            }
+            else
+            {
+                rollingMins.Stop();
+                btnRollingGraph.Text = "Rolling 1 Hour";
+                Application.DoEvents();
+            }
+        }
+
+        private void rdoFilterLast24hrs_CheckedChanged(object sender, EventArgs e)
         {
 
         }

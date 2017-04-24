@@ -6,6 +6,9 @@ namespace CBW_4PortTemperatureGraphingTool
 {
     internal class GetCBWMinMaxValues
     {
+        // 18/04/2017 10:50:19|19.5|19.2|19.7|19.4
+        // Get the max and min value of each series and returens the max min of all 4 lists
+
         internal double GetMax(List<string> coreDataLines)
         {
             List<string> s1 = new List<string>();

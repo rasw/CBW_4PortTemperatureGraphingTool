@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRollingGraph = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -61,6 +63,7 @@
             this.tabGraphView = new System.Windows.Forms.TabPage();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabProcessView = new System.Windows.Forms.TabPage();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -74,6 +77,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel1.Controls.Add(this.btnRollingGraph);
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Controls.Add(this.btnRefresh);
             this.panel1.Controls.Add(this.groupBox2);
@@ -83,12 +87,24 @@
             this.panel1.Size = new System.Drawing.Size(1262, 116);
             this.panel1.TabIndex = 0;
             // 
+            // btnRollingGraph
+            // 
+            this.btnRollingGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRollingGraph.Enabled = false;
+            this.btnRollingGraph.Location = new System.Drawing.Point(1002, 18);
+            this.btnRollingGraph.Name = "btnRollingGraph";
+            this.btnRollingGraph.Size = new System.Drawing.Size(105, 38);
+            this.btnRollingGraph.TabIndex = 4;
+            this.btnRollingGraph.Text = "Rolling 1 Hour";
+            this.btnRollingGraph.UseVisualStyleBackColor = true;
+            this.btnRollingGraph.Click += new System.EventHandler(this.btnRollingGraph_Click);
+            // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(1085, 62);
+            this.btnClose.Location = new System.Drawing.Point(1131, 62);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(151, 38);
+            this.btnClose.Size = new System.Drawing.Size(105, 38);
             this.btnClose.TabIndex = 3;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -97,11 +113,12 @@
             // btnRefresh
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.Location = new System.Drawing.Point(1085, 16);
+            this.btnRefresh.Enabled = false;
+            this.btnRefresh.Location = new System.Drawing.Point(1131, 16);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(151, 38);
+            this.btnRefresh.Size = new System.Drawing.Size(105, 38);
             this.btnRefresh.TabIndex = 2;
-            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.Text = "Save Graph";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
@@ -222,6 +239,7 @@
             this.rdoFilterLast24hrs.TabStop = true;
             this.rdoFilterLast24hrs.Text = "Last 24 hrs";
             this.rdoFilterLast24hrs.UseVisualStyleBackColor = true;
+            this.rdoFilterLast24hrs.CheckedChanged += new System.EventHandler(this.rdoFilterLast24hrs_CheckedChanged);
             this.rdoFilterLast24hrs.Click += new System.EventHandler(this.rdoFilterLast24hrs_Click);
             // 
             // rdoFilterLast3Months
@@ -400,17 +418,17 @@
             // 
             this.chart1.BorderlineColor = System.Drawing.Color.Black;
             this.chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(6, 6);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(990, 591);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(1237, 591);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
@@ -478,6 +496,8 @@
         private System.Windows.Forms.RadioButton rdoFilterLast3weeks;
         private System.Windows.Forms.RadioButton rdoFilterLast2weeks;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Button btnRollingGraph;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
