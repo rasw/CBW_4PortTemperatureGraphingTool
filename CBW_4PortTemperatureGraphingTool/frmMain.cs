@@ -11,6 +11,7 @@ using AkvaData;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.IO;
 using System.Collections;
+using System.Net.Sockets;
 
 namespace CBW_4PortTemperatureGraphingTool
 {
@@ -26,6 +27,7 @@ namespace CBW_4PortTemperatureGraphingTool
         List<string> coreFileData;
         bool showGradBackground = true;
         bool timerRunning = false;
+    
 
         Timer rollingMins;
 
@@ -367,6 +369,25 @@ namespace CBW_4PortTemperatureGraphingTool
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            AppSettings appSet = new AppSettings(Path.Combine(Directory.GetCurrentDirectory(), "CBW4PortTempGraphingTool.xml"));            //create appsettings XML reader object
+            saveFileDialog1.Filter = "png files (*.png)|*.png|All files (*.*)|*.*";
+            saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            saveFileDialog1.FilterIndex = 1;
+
+            try
+            {
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    string name = saveFileDialog1.FileName;
+                    string versionDT = DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "-");             
+                    chart1.SaveImage(name, ChartImageFormat.Png);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error saving graph... [" + ex.Message + "]", "AKVA Group...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Logger.WriteToLog("btnRefresh_Click -> " + ex.Message);
+            }
 
         }
 
@@ -403,11 +424,6 @@ namespace CBW_4PortTemperatureGraphingTool
             chart1.ChartAreas[0].AxisY.ScaleView.ZoomReset(1);
         }
 
-        private void rdoFilterAllData_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnRollingGraph_Click(object sender, EventArgs e)
         {
             timerRunning = !timerRunning;
@@ -428,6 +444,160 @@ namespace CBW_4PortTemperatureGraphingTool
 
         private void rdoFilterLast24hrs_CheckedChanged(object sender, EventArgs e)
         {
+
+        }
+
+        void EnableDisableALL(bool EnableControls)
+        {
+            txtRootFolderPath.Enabled = EnableControls;
+            cmbDataFiles.Enabled = EnableControls;
+            btnDataFolderBrowse.Enabled = EnableControls;
+            rdoFilterAllData.Enabled = EnableControls;
+            rdoFilterLast6hrs.Enabled = EnableControls;
+            rdoFilterLast12hrs.Enabled = EnableControls;
+            rdoFilterLast24hrs.Enabled = EnableControls;
+            rdoFilterLast2days.Enabled = EnableControls;
+            rdoFilterLast5days.Enabled = EnableControls;
+            rdoFilterLast7days.Enabled = EnableControls;
+            rdoFilterLast2weeks.Enabled = EnableControls;
+            rdoFilterLast3weeks.Enabled = EnableControls;
+            rdoFilterLastMonth.Enabled = EnableControls;
+            rdoFilterLast2Months.Enabled = EnableControls;
+            rdoFilterLast3Months.Enabled = EnableControls;
+            rdoFilterLast4Months.Enabled = EnableControls;
+            rdoFilterLast5Months.Enabled = EnableControls;
+            rdoFilterLast6Months.Enabled = EnableControls;
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 0)
+            {
+                EnableDisableALL(false);  // HMI
+                tmrHMI.Stop();
+            }
+            else
+            {
+                EnableDisableALL(true);
+                tmrHMI.Start();
+            }
+
+           
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private int readTemperatures()
+        {
+            AppSettings appSet = new AppSettings(Path.Combine(Directory.GetCurrentDirectory(), "CBW4PortTempGraphingTool.xml"));
+            TcpClient tcpClient = new TcpClient();
+
+            try
+            {
+                // Attempt the connection
+                tcpClient.Connect(appSet.getValue("ipAddress"), Convert.ToInt32(appSet.getValue("httpPort")));
+
+                if (tcpClient.Connected)
+                {
+                    // Create a network stream object
+                    NetworkStream netStream = tcpClient.GetStream();
+
+                    // If we can read and write to the stream then do so
+                    if (netStream.CanWrite && netStream.CanRead)
+                    {
+                        // if there is a password then we need to encode it first convert the password to a byte array
+                        byte[] password_bytes = Encoding.ASCII.GetBytes("none:" + appSet.getValue("Password"));
+                        string pass = Convert.ToBase64String(password_bytes);
+
+                        // Create the command to send to the temperature module
+                        byte[] sendBytes = Encoding.ASCII.GetBytes("GET /state.xml HTTP/1.1" + Environment.NewLine + "Authorization: Basic " + pass + Environment.NewLine + Environment.NewLine);
+                        netStream.Write(sendBytes, 0, sendBytes.Length);
+
+                        // Get the response from the temperature module
+                        byte[] bytes = new byte[tcpClient.ReceiveBufferSize];
+                        netStream.Read(bytes, 0, tcpClient.ReceiveBufferSize);
+
+                        // Parse the response and update the temperature text boxes
+                        string returndata = Encoding.ASCII.GetString(bytes);
+
+                        char[] splitters = { '<', '>' };
+
+                        string[] strs = returndata.Split(splitters);
+
+                        // go through all the strings and extract the temperatures
+                        int sensorNumber = 1;
+                      //  string unitsCompareStr = "units";
+                        string sensorCompareStr = "sensor" + sensorNumber.ToString() + "temp";
+
+                        for (int i = 0; i < strs.Length; i++)
+                        {
+                            //if (strs[i] == unitsCompareStr)
+                            //{
+                            //    lblCF1.Text = strs[i + 1];
+                            //    lblCF2.Text = strs[i + 1];
+                            //    lblCF3.Text = strs[i + 1];
+                            //    lblCF4.Text = strs[i + 1];
+                            //}
+
+                            if (strs[i] == sensorCompareStr)
+                            {
+                                // the next string is the current temperature for this sensor
+
+                                // txtBlowerOutTemperature.Text = string.Format("{0}\u00B0C", 89.9);
+
+                                switch (sensorNumber)
+                                {
+                                    case 1:
+                                        txtBlowerOutTemperature.Text = string.Format("{0}\u00B0C",strs[i + 1]);   // sensor 1
+                                        break;
+                                    case 2:
+                                        txtExtTemperature.Text = string.Format("{0}\u00B0C", strs[i + 1]);       // sensor 2
+                                        break;
+                                    case 3:
+                                        txtHopperInTemperature.Text = string.Format("{0}\u00B0C", strs[i + 1]);   // sensor 3
+                                        break;
+                                    case 4:
+                                        txtAmbientTemperature.Text = string.Format("{0}\u00B0C", strs[i + 1]);
+                                        break;
+                                }
+
+                                // move to the next sensor
+                                sensorNumber++;
+                                i++;
+                                sensorCompareStr = "sensor" + sensorNumber.ToString() + "temp";
+                            }
+
+                        }
+
+                    }
+
+                    // Close the connection
+                    tcpClient.Close();
+                    //captureCount++;
+                    //lblCaptureCount.Text = captureCount.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There was a problem communicting with the unit." + Environment.NewLine + "Message received: " + ex.Message + Environment.NewLine +
+                    "Make sure to use a valid IP Address and Port Number as well as a Password if it is required.", "Information", MessageBoxButtons.OK);
+                return 3;
+            }
+            return 3;
+        }
+
+        private void btnSetup_Click(object sender, EventArgs e)
+        {
+            frmLiveLoggingSetup frmSu = new frmLiveLoggingSetup();
+            frmSu.ShowDialog();
+        }
+
+        private void tmrHMI_Tick(object sender, EventArgs e)
+        {
+            int ret = readTemperatures();
 
         }
     }

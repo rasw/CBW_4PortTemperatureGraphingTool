@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnRollingGraph = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -63,13 +63,27 @@
             this.tabGraphView = new System.Windows.Forms.TabPage();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabProcessView = new System.Windows.Forms.TabPage();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.txtExtTemperature = new System.Windows.Forms.TextBox();
+            this.txtAmbientTemperature = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtHopperInTemperature = new System.Windows.Forms.TextBox();
+            this.txtBlowerOutTemperature = new System.Windows.Forms.TextBox();
+            this.picProcessView = new System.Windows.Forms.PictureBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.btnSetup = new System.Windows.Forms.Button();
+            this.tmrHMI = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabGraphView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabProcessView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picProcessView)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -77,6 +91,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel1.Controls.Add(this.btnSetup);
             this.panel1.Controls.Add(this.btnRollingGraph);
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Controls.Add(this.btnRefresh);
@@ -168,7 +183,6 @@
             this.rdoFilterAllData.TabIndex = 32;
             this.rdoFilterAllData.Text = "All Data";
             this.rdoFilterAllData.UseVisualStyleBackColor = true;
-            this.rdoFilterAllData.CheckedChanged += new System.EventHandler(this.rdoFilterAllData_CheckedChanged);
             this.rdoFilterAllData.Click += new System.EventHandler(this.rdoFilterAllData_Click);
             // 
             // rdoFilterLast6Months
@@ -402,6 +416,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1259, 633);
             this.tabControl1.TabIndex = 1;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabGraphView
             // 
@@ -418,22 +433,29 @@
             // 
             this.chart1.BorderlineColor = System.Drawing.Color.Black;
             this.chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea6.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.chart1.Legends.Add(legend6);
             this.chart1.Location = new System.Drawing.Point(6, 6);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.chart1.Series.Add(series6);
             this.chart1.Size = new System.Drawing.Size(1237, 591);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
             // tabProcessView
             // 
+            this.tabProcessView.Controls.Add(this.txtExtTemperature);
+            this.tabProcessView.Controls.Add(this.txtAmbientTemperature);
+            this.tabProcessView.Controls.Add(this.label4);
+            this.tabProcessView.Controls.Add(this.label3);
+            this.tabProcessView.Controls.Add(this.txtHopperInTemperature);
+            this.tabProcessView.Controls.Add(this.txtBlowerOutTemperature);
+            this.tabProcessView.Controls.Add(this.picProcessView);
             this.tabProcessView.Location = new System.Drawing.Point(4, 22);
             this.tabProcessView.Name = "tabProcessView";
             this.tabProcessView.Padding = new System.Windows.Forms.Padding(3);
@@ -441,6 +463,144 @@
             this.tabProcessView.TabIndex = 1;
             this.tabProcessView.Text = "Process View";
             this.tabProcessView.UseVisualStyleBackColor = true;
+            // 
+            // txtExtTemperature
+            // 
+            this.txtExtTemperature.BackColor = System.Drawing.Color.White;
+            this.txtExtTemperature.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtExtTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtExtTemperature.ForeColor = System.Drawing.Color.Black;
+            this.txtExtTemperature.Location = new System.Drawing.Point(951, 102);
+            this.txtExtTemperature.Name = "txtExtTemperature";
+            this.txtExtTemperature.Size = new System.Drawing.Size(183, 40);
+            this.txtExtTemperature.TabIndex = 6;
+            this.txtExtTemperature.Text = "- - -";
+            // 
+            // txtAmbientTemperature
+            // 
+            this.txtAmbientTemperature.BackColor = System.Drawing.Color.White;
+            this.txtAmbientTemperature.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtAmbientTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAmbientTemperature.ForeColor = System.Drawing.Color.Black;
+            this.txtAmbientTemperature.Location = new System.Drawing.Point(951, 41);
+            this.txtAmbientTemperature.Name = "txtAmbientTemperature";
+            this.txtAmbientTemperature.Size = new System.Drawing.Size(183, 40);
+            this.txtAmbientTemperature.TabIndex = 5;
+            this.txtAmbientTemperature.Text = "- - -";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(582, 102);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(363, 39);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "External Temperature:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(582, 41);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(363, 39);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Ambient Temperature:";
+            // 
+            // txtHopperInTemperature
+            // 
+            this.txtHopperInTemperature.BackColor = System.Drawing.Color.White;
+            this.txtHopperInTemperature.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtHopperInTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHopperInTemperature.ForeColor = System.Drawing.Color.Black;
+            this.txtHopperInTemperature.Location = new System.Drawing.Point(936, 384);
+            this.txtHopperInTemperature.Name = "txtHopperInTemperature";
+            this.txtHopperInTemperature.Size = new System.Drawing.Size(129, 47);
+            this.txtHopperInTemperature.TabIndex = 2;
+            this.txtHopperInTemperature.Text = "- - -";
+            this.txtHopperInTemperature.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtBlowerOutTemperature
+            // 
+            this.txtBlowerOutTemperature.BackColor = System.Drawing.Color.White;
+            this.txtBlowerOutTemperature.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBlowerOutTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBlowerOutTemperature.ForeColor = System.Drawing.Color.Black;
+            this.txtBlowerOutTemperature.Location = new System.Drawing.Point(317, 399);
+            this.txtBlowerOutTemperature.Name = "txtBlowerOutTemperature";
+            this.txtBlowerOutTemperature.Size = new System.Drawing.Size(129, 40);
+            this.txtBlowerOutTemperature.TabIndex = 1;
+            this.txtBlowerOutTemperature.Text = "- - -";
+            this.txtBlowerOutTemperature.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBlowerOutTemperature.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // picProcessView
+            // 
+            this.picProcessView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picProcessView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.picProcessView.Image = global::CBW_4PortTemperatureGraphingTool.Properties.Resources.CBW_SystemGraphic_copy;
+            this.picProcessView.Location = new System.Drawing.Point(3, 6);
+            this.picProcessView.Name = "picProcessView";
+            this.picProcessView.Size = new System.Drawing.Size(1240, 591);
+            this.picProcessView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picProcessView.TabIndex = 0;
+            this.picProcessView.TabStop = false;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.White;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.ForeColor = System.Drawing.Color.Black;
+            this.textBox2.Location = new System.Drawing.Point(936, 384);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(129, 47);
+            this.textBox2.TabIndex = 2;
+            this.textBox2.Text = "- - -";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox4
+            // 
+            this.textBox4.BackColor = System.Drawing.Color.White;
+            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.ForeColor = System.Drawing.Color.Black;
+            this.textBox4.Location = new System.Drawing.Point(951, 102);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(89, 40);
+            this.textBox4.TabIndex = 6;
+            this.textBox4.Text = "- - -";
+            // 
+            // textBox3
+            // 
+            this.textBox3.BackColor = System.Drawing.Color.White;
+            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.ForeColor = System.Drawing.Color.Black;
+            this.textBox3.Location = new System.Drawing.Point(951, 41);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(89, 40);
+            this.textBox3.TabIndex = 5;
+            this.textBox3.Text = "- - -";
+            // 
+            // btnSetup
+            // 
+            this.btnSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSetup.Location = new System.Drawing.Point(1002, 64);
+            this.btnSetup.Name = "btnSetup";
+            this.btnSetup.Size = new System.Drawing.Size(105, 38);
+            this.btnSetup.TabIndex = 5;
+            this.btnSetup.Text = "Setup";
+            this.btnSetup.UseVisualStyleBackColor = true;
+            this.btnSetup.Click += new System.EventHandler(this.btnSetup_Click);
+            // 
+            // tmrHMI
+            // 
+            this.tmrHMI.Interval = 2000;
+            this.tmrHMI.Tick += new System.EventHandler(this.tmrHMI_Tick);
             // 
             // frmMain
             // 
@@ -460,6 +620,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabGraphView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.tabProcessView.ResumeLayout(false);
+            this.tabProcessView.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picProcessView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -497,7 +660,19 @@
         private System.Windows.Forms.RadioButton rdoFilterLast2weeks;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Button btnRollingGraph;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.TextBox txtBlowerOutTemperature;
+        private System.Windows.Forms.PictureBox picProcessView;
+        private System.Windows.Forms.TextBox txtExtTemperature;
+        private System.Windows.Forms.TextBox txtAmbientTemperature;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtHopperInTemperature;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button btnSetup;
+        private System.Windows.Forms.Timer tmrHMI;
     }
 }
 
