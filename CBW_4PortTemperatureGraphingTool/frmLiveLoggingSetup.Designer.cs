@@ -314,9 +314,9 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(334, 294);
+            this.btnExit.Location = new System.Drawing.Point(334, 286);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(143, 26);
+            this.btnExit.Size = new System.Drawing.Size(143, 34);
             this.btnExit.TabIndex = 2;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -341,11 +341,12 @@
             this.btnStop.TabIndex = 1;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Visible = false;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // tmrLogTimer
             // 
-            this.tmrLogTimer.Interval = 2000;
+            this.tmrLogTimer.Interval = 3000;
             this.tmrLogTimer.Tick += new System.EventHandler(this.tmrLogTimer_Tick);
             // 
             // lblReadCounter
@@ -368,6 +369,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox4);
             this.Name = "frmLiveLoggingSetup";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Logging Setup...";
             this.Load += new System.EventHandler(this.frmLiveLoggingSetup_Load);
             this.groupBox4.ResumeLayout(false);

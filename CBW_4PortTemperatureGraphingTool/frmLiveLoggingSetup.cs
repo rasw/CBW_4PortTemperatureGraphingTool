@@ -22,6 +22,8 @@ namespace CBW_4PortTemperatureGraphingTool
 
         AppSettings appSet = new AppSettings(Path.Combine(Directory.GetCurrentDirectory(), "CBW4PortTempGraphingTool.xml"));
 
+        int readingCounter = 0;
+
         private void frmLiveLoggingSetup_Load(object sender, EventArgs e)
         {
             ReadSettings();
@@ -46,6 +48,8 @@ namespace CBW_4PortTemperatureGraphingTool
         private void tmrLogTimer_Tick(object sender, EventArgs e)
         {
             int ret = readTemperatures();
+            readingCounter++;
+            lblReadCounter.Text = "Read Counter: " + readingCounter.ToString();
         }
 
         private void ReadSettings()

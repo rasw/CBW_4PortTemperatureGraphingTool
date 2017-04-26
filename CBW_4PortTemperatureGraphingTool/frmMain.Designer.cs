@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnRollingGraph = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -76,6 +76,10 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.btnSetup = new System.Windows.Forms.Button();
             this.tmrHMI = new System.Windows.Forms.Timer(this.components);
+            this.txtTempDelta = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblCaptureCount = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -433,22 +437,26 @@
             // 
             this.chart1.BorderlineColor = System.Drawing.Color.Black;
             this.chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea6.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.chart1.Legends.Add(legend6);
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(6, 6);
             this.chart1.Name = "chart1";
-            series6.ChartArea = "ChartArea1";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.chart1.Series.Add(series6);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(1237, 591);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
             // tabProcessView
             // 
+            this.tabProcessView.Controls.Add(this.lblCaptureCount);
+            this.tabProcessView.Controls.Add(this.label6);
+            this.tabProcessView.Controls.Add(this.label5);
+            this.tabProcessView.Controls.Add(this.txtTempDelta);
             this.tabProcessView.Controls.Add(this.txtExtTemperature);
             this.tabProcessView.Controls.Add(this.txtAmbientTemperature);
             this.tabProcessView.Controls.Add(this.label4);
@@ -514,7 +522,7 @@
             this.txtHopperInTemperature.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtHopperInTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHopperInTemperature.ForeColor = System.Drawing.Color.Black;
-            this.txtHopperInTemperature.Location = new System.Drawing.Point(936, 384);
+            this.txtHopperInTemperature.Location = new System.Drawing.Point(877, 397);
             this.txtHopperInTemperature.Name = "txtHopperInTemperature";
             this.txtHopperInTemperature.Size = new System.Drawing.Size(129, 47);
             this.txtHopperInTemperature.TabIndex = 2;
@@ -602,6 +610,50 @@
             this.tmrHMI.Interval = 2000;
             this.tmrHMI.Tick += new System.EventHandler(this.tmrHMI_Tick);
             // 
+            // txtTempDelta
+            // 
+            this.txtTempDelta.BackColor = System.Drawing.Color.White;
+            this.txtTempDelta.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtTempDelta.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTempDelta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.txtTempDelta.Location = new System.Drawing.Point(764, 265);
+            this.txtTempDelta.Name = "txtTempDelta";
+            this.txtTempDelta.Size = new System.Drawing.Size(107, 33);
+            this.txtTempDelta.TabIndex = 7;
+            this.txtTempDelta.Text = "- - -";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label5.Location = new System.Drawing.Point(466, 265);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(292, 33);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Temperature Delta T:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(452, 218);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(398, 20);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Blower Out Temperature Minus Hopper In Temperature";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // lblCaptureCount
+            // 
+            this.lblCaptureCount.AutoSize = true;
+            this.lblCaptureCount.Location = new System.Drawing.Point(1112, 566);
+            this.lblCaptureCount.Name = "lblCaptureCount";
+            this.lblCaptureCount.Size = new System.Drawing.Size(22, 13);
+            this.lblCaptureCount.TabIndex = 10;
+            this.lblCaptureCount.Text = "- - -";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -673,6 +725,10 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button btnSetup;
         private System.Windows.Forms.Timer tmrHMI;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtTempDelta;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblCaptureCount;
     }
 }
 

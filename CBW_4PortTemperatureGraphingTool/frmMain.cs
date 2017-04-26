@@ -27,7 +27,11 @@ namespace CBW_4PortTemperatureGraphingTool
         List<string> coreFileData;
         bool showGradBackground = true;
         bool timerRunning = false;
-    
+
+        double deltaTvalue = 0;
+        double blowerOutTemperature = 0;
+        double hopperInTemperature = 0;
+        int captureCount = 0;
 
         Timer rollingMins;
 
@@ -475,11 +479,13 @@ namespace CBW_4PortTemperatureGraphingTool
             {
                 EnableDisableALL(false);  // HMI
                 tmrHMI.Stop();
+                captureCount = 0;
             }
             else
             {
                 EnableDisableALL(true);
                 tmrHMI.Start();
+                captureCount = 0;
             }
 
            
@@ -552,12 +558,14 @@ namespace CBW_4PortTemperatureGraphingTool
                                 {
                                     case 1:
                                         txtBlowerOutTemperature.Text = string.Format("{0}\u00B0C",strs[i + 1]);   // sensor 1
+                                        blowerOutTemperature = Convert.ToDouble(strs[i + 1]);
                                         break;
                                     case 2:
                                         txtExtTemperature.Text = string.Format("{0}\u00B0C", strs[i + 1]);       // sensor 2
                                         break;
                                     case 3:
                                         txtHopperInTemperature.Text = string.Format("{0}\u00B0C", strs[i + 1]);   // sensor 3
+                                        hopperInTemperature = Convert.ToDouble(strs[i + 1]);
                                         break;
                                     case 4:
                                         txtAmbientTemperature.Text = string.Format("{0}\u00B0C", strs[i + 1]);
@@ -568,6 +576,7 @@ namespace CBW_4PortTemperatureGraphingTool
                                 sensorNumber++;
                                 i++;
                                 sensorCompareStr = "sensor" + sensorNumber.ToString() + "temp";
+                              
                             }
 
                         }
@@ -598,6 +607,16 @@ namespace CBW_4PortTemperatureGraphingTool
         private void tmrHMI_Tick(object sender, EventArgs e)
         {
             int ret = readTemperatures();
+            deltaTvalue = Math.Round(hopperInTemperature - blowerOutTemperature, 2);
+            txtTempDelta.Text = deltaTvalue.ToString();
+            captureCount++;
+            lblCaptureCount.Text = "Readings Count: " + captureCount.ToString();
+
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
 
         }
     }
