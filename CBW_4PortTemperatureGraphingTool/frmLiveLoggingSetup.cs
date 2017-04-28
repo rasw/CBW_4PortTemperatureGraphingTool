@@ -58,6 +58,7 @@ namespace CBW_4PortTemperatureGraphingTool
             txtPort.Text = appSet.getValue("httpPort");
             txtPassword.Text = appSet.getValue("Password");
             btnTestConnection.Enabled = true;
+            numUpDwnSampleRate.Value = Convert.ToDecimal(appSet.getValue("SampleRate"));
         }
 
         private void SaveSettings()
@@ -170,6 +171,12 @@ namespace CBW_4PortTemperatureGraphingTool
         private void txtPassword_Leave(object sender, EventArgs e)
         {
             SaveSettings();
+        }
+
+        private void numUpDwnSampleRate_ValueChanged(object sender, EventArgs e)
+        {
+            decimal rate = numUpDwnSampleRate.Value;
+            appSet.setValue("SampleRate", rate.ToString());
         }
     }
 }

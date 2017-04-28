@@ -33,6 +33,7 @@ namespace CBW_4PortTemperatureGraphingTool
         double doserInTemperature = 0;
         int captureCount = 0;
         string unitIPAddress = null;
+        decimal hmiSampleRate = 2000;
 
         Timer rollingMins;
 
@@ -414,6 +415,16 @@ namespace CBW_4PortTemperatureGraphingTool
             selectedRootFolder = root;
             unitIPAddress = appSet.getValue("ipAddress");
 
+            try
+            {
+                hmiSampleRate = Convert.ToDecimal(appSet.getValue("SampleRate")) * 1000;
+                tmrHMI.Interval = (int)hmiSampleRate;
+            }
+            catch
+            {
+                tmrHMI.Interval = 2000;
+            }
+           
             LoadFilesIntoFileList(root);
         }
 
@@ -450,11 +461,6 @@ namespace CBW_4PortTemperatureGraphingTool
                 btnRollingGraph.Text = "Rolling 1 Hour";
                 Application.DoEvents();
             }
-        }
-
-        private void rdoFilterLast24hrs_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         void EnableDisableALL(bool EnableControls)
@@ -624,6 +630,18 @@ namespace CBW_4PortTemperatureGraphingTool
             captureCount++;
             lblCaptureCount.Text = "Readings Count: " + captureCount.ToString();
             lblUnitIP.Text = "Unit IP: " + unitIPAddress;
+
+            string data = DateTime.Now.ToString() + "|Unit IP:" + unitIPAddress + "|Blower Out:" + blowerOutTemperature.ToString() + "|Doser In:" + doserInTemperature.ToString() + "|Cooler Temperature Drop:" + deltaTvalue.ToString() + "|Percentage Change:" + percChange.ToString();
+
+            try
+            {
+                string dateString = DateTime.Now.Date.ToShortDateString().Replace(@"/", "-");
+                File.AppendAllText(@"C:\AkvaData\Data\HMI_DataLog_" + dateString + ".txt", data + Environment.NewLine);
+            }
+            catch(Exception ex)
+            {
+                Logger.WriteToLog("tmrHMI_Tick -> " + ex.Message);
+            }
         }
     }
 }

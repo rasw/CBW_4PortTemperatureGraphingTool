@@ -58,12 +58,19 @@
             this.btnStop = new System.Windows.Forms.Button();
             this.tmrLogTimer = new System.Windows.Forms.Timer(this.components);
             this.lblReadCounter = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.numUpDwnSampleRate = new System.Windows.Forms.NumericUpDown();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDwnSampleRate)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.numUpDwnSampleRate);
+            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.txtPassword);
             this.groupBox4.Controls.Add(this.txtPort);
@@ -72,7 +79,7 @@
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Location = new System.Drawing.Point(12, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(298, 117);
+            this.groupBox4.Size = new System.Drawing.Size(298, 146);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Temperature Module Settings";
@@ -149,9 +156,9 @@
             this.groupBox1.Controls.Add(this.txtSensor3Reading);
             this.groupBox1.Controls.Add(this.txtSensor2Reading);
             this.groupBox1.Controls.Add(this.txtSensor1Reading);
-            this.groupBox1.Location = new System.Drawing.Point(12, 142);
+            this.groupBox1.Location = new System.Drawing.Point(12, 164);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(298, 178);
+            this.groupBox1.Size = new System.Drawing.Size(298, 162);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Last Sensor Readings";
@@ -314,7 +321,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(334, 286);
+            this.btnExit.Location = new System.Drawing.Point(334, 290);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(143, 34);
             this.btnExit.TabIndex = 2;
@@ -357,6 +364,47 @@
             this.lblReadCounter.TabIndex = 13;
             this.lblReadCounter.Text = "Read Counter: - - -";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(25, 112);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Sample Rate:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(161, 112);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "Seconds";
+            // 
+            // numUpDwnSampleRate
+            // 
+            this.numUpDwnSampleRate.Location = new System.Drawing.Point(99, 110);
+            this.numUpDwnSampleRate.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numUpDwnSampleRate.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numUpDwnSampleRate.Name = "numUpDwnSampleRate";
+            this.numUpDwnSampleRate.Size = new System.Drawing.Size(56, 20);
+            this.numUpDwnSampleRate.TabIndex = 8;
+            this.numUpDwnSampleRate.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numUpDwnSampleRate.ValueChanged += new System.EventHandler(this.numUpDwnSampleRate_ValueChanged);
+            // 
             // frmLiveLoggingSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -376,6 +424,7 @@
             this.groupBox4.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDwnSampleRate)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -411,5 +460,8 @@
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Timer tmrLogTimer;
         private System.Windows.Forms.Label lblReadCounter;
+        private System.Windows.Forms.NumericUpDown numUpDwnSampleRate;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label2;
     }
 }
