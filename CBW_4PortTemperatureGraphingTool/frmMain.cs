@@ -30,8 +30,9 @@ namespace CBW_4PortTemperatureGraphingTool
 
         double deltaTvalue = 0;
         double blowerOutTemperature = 0;
-        double hopperInTemperature = 0;
+        double doserInTemperature = 0;
         int captureCount = 0;
+        string unitIPAddress = null;
 
         Timer rollingMins;
 
@@ -95,6 +96,10 @@ namespace CBW_4PortTemperatureGraphingTool
             rollingMins.Tick += RollingMins_Tick;
             rollingMins.Interval = 60000;
             rollingMins.Stop();
+
+            EnableDisableALL(false);
+            tmrHMI.Start();
+            captureCount = 0;
         }
 
         private void RollingMins_Tick(object sender, EventArgs e)
@@ -407,6 +412,7 @@ namespace CBW_4PortTemperatureGraphingTool
             string root = appSet.getValue("RootDataFolder");
             txtRootFolderPath.Text = root;
             selectedRootFolder = root;
+            unitIPAddress = appSet.getValue("ipAddress");
 
             LoadFilesIntoFileList(root);
         }
@@ -475,20 +481,20 @@ namespace CBW_4PortTemperatureGraphingTool
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+           
+
             if (tabControl1.SelectedIndex == 0)
             {
-                EnableDisableALL(false);  // HMI
-                tmrHMI.Stop();
+                EnableDisableALL(false);
+                tmrHMI.Start();
                 captureCount = 0;
             }
             else
             {
-                EnableDisableALL(true);
-                tmrHMI.Start();
+                EnableDisableALL(true);  // HMI
+                tmrHMI.Stop();
                 captureCount = 0;
             }
-
-           
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -550,25 +556,21 @@ namespace CBW_4PortTemperatureGraphingTool
 
                             if (strs[i] == sensorCompareStr)
                             {
-                                // the next string is the current temperature for this sensor
-
-                                // txtBlowerOutTemperature.Text = string.Format("{0}\u00B0C", 89.9);
-
                                 switch (sensorNumber)
                                 {
                                     case 1:
                                         txtBlowerOutTemperature.Text = string.Format("{0}\u00B0C",strs[i + 1]);   // sensor 1
-                                        blowerOutTemperature = Convert.ToDouble(strs[i + 1]);
                                         break;
                                     case 2:
                                         txtExtTemperature.Text = string.Format("{0}\u00B0C", strs[i + 1]);       // sensor 2
+                                        doserInTemperature = Convert.ToDouble(strs[i + 1]);
                                         break;
                                     case 3:
                                         txtHopperInTemperature.Text = string.Format("{0}\u00B0C", strs[i + 1]);   // sensor 3
-                                        hopperInTemperature = Convert.ToDouble(strs[i + 1]);
                                         break;
                                     case 4:
                                         txtAmbientTemperature.Text = string.Format("{0}\u00B0C", strs[i + 1]);
+                                        blowerOutTemperature = Convert.ToDouble(strs[i + 1]);
                                         break;
                                 }
 
@@ -576,11 +578,8 @@ namespace CBW_4PortTemperatureGraphingTool
                                 sensorNumber++;
                                 i++;
                                 sensorCompareStr = "sensor" + sensorNumber.ToString() + "temp";
-                              
                             }
-
                         }
-
                     }
 
                     // Close the connection
@@ -607,17 +606,24 @@ namespace CBW_4PortTemperatureGraphingTool
         private void tmrHMI_Tick(object sender, EventArgs e)
         {
             int ret = readTemperatures();
-            deltaTvalue = Math.Round(hopperInTemperature - blowerOutTemperature, 2);
-            txtTempDelta.Text = deltaTvalue.ToString();
+            deltaTvalue = Math.Round(doserInTemperature - blowerOutTemperature, 2);
+
+            //double percChange = Math.Round((doserInTemperature + blowerOutTemperature) / ((doserInTemperature - blowerOutTemperature) / 2), 4);
+            //double percChange = Math.Round((doserInTemperature - blowerOutTemperature) / ((doserInTemperature + blowerOutTemperature) / 2), 4);
+            double percChange = Math.Round((blowerOutTemperature - doserInTemperature) / ((blowerOutTemperature + doserInTemperature) / 2),4);
+
+            percChange *= 100;
+            txtPercentageChange.Text = percChange.ToString() + "%";
+
+            if (deltaTvalue < 0)
+                txtTempDelta.ForeColor = Color.Blue;
+            else
+                txtTempDelta.ForeColor = Color.DarkRed;
+
+            txtTempDelta.Text = string.Format("{0}\u00B0C", deltaTvalue.ToString());
             captureCount++;
             lblCaptureCount.Text = "Readings Count: " + captureCount.ToString();
-
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
+            lblUnitIP.Text = "Unit IP: " + unitIPAddress;
         }
     }
 }

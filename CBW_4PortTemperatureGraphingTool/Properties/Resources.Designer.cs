@@ -63,9 +63,9 @@ namespace CBW_4PortTemperatureGraphingTool.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap CBW_SystemGraphic_copy {
+        internal static System.Drawing.Bitmap CBW_SystemGraphic3 {
             get {
-                object obj = ResourceManager.GetObject("CBW_SystemGraphic copy", resourceCulture);
+                object obj = ResourceManager.GetObject("CBW_SystemGraphic3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
