@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_96E3932300704D9791AB354AE6468B0C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_931AE594ECE346859E7E39CE86DDB050"
         "MsmSig" = "8:_UNDEFINED"
@@ -43,6 +49,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -59,6 +73,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -103,6 +133,26 @@
                 }
             "SourcePath" = "8:..\\CBW_4PortTemperatureGraphingTool\\bin\\Release\\CBW_4PortTemperatureGraphingTool.exe"
             "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_B64D799BC3DB435A914F4B88902E94BD"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_96E3932300704D9791AB354AE6468B0C"
+            {
+            "SourcePath" = "8:..\\CBW_4PortTemperatureGraphingTool\\bin\\Release\\CBWFeedSystemGraphic.png"
+            "TargetName" = "8:CBWFeedSystemGraphic.png"
             "Tag" = "8:"
             "Folder" = "8:_B64D799BC3DB435A914F4B88902E94BD"
             "Condition" = "8:"
@@ -176,7 +226,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup"
         "ProductCode" = "8:{75002905-82CF-4D69-A379-C4721E7254E6}"
-        "PackageCode" = "8:{78856CE9-CD98-4F2F-9A06-6FE602D52B33}"
+        "PackageCode" = "8:{D999C6CB-D63F-4D61-8957-1C05FE07381A}"
         "UpgradeCode" = "8:{55831668-C082-4715-89AA-CBFC7CD92D76}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

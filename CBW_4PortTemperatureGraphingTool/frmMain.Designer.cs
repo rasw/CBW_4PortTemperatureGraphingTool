@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -107,13 +108,13 @@
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1262, 116);
+            this.panel1.Size = new System.Drawing.Size(1350, 116);
             this.panel1.TabIndex = 0;
             // 
             // btnSetup
             // 
             this.btnSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSetup.Location = new System.Drawing.Point(1003, 63);
+            this.btnSetup.Location = new System.Drawing.Point(1091, 63);
             this.btnSetup.Name = "btnSetup";
             this.btnSetup.Size = new System.Drawing.Size(105, 37);
             this.btnSetup.TabIndex = 5;
@@ -125,7 +126,7 @@
             // 
             this.btnRollingGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRollingGraph.Enabled = false;
-            this.btnRollingGraph.Location = new System.Drawing.Point(1002, 17);
+            this.btnRollingGraph.Location = new System.Drawing.Point(1090, 17);
             this.btnRollingGraph.Name = "btnRollingGraph";
             this.btnRollingGraph.Size = new System.Drawing.Size(105, 38);
             this.btnRollingGraph.TabIndex = 4;
@@ -136,7 +137,7 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(1131, 62);
+            this.btnClose.Location = new System.Drawing.Point(1219, 62);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(105, 38);
             this.btnClose.TabIndex = 3;
@@ -148,7 +149,7 @@
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.Enabled = false;
-            this.btnRefresh.Location = new System.Drawing.Point(1131, 16);
+            this.btnRefresh.Location = new System.Drawing.Point(1219, 16);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(105, 38);
             this.btnRefresh.TabIndex = 2;
@@ -432,7 +433,7 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 122);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1259, 633);
+            this.tabControl1.Size = new System.Drawing.Size(1347, 587);
             this.tabControl1.TabIndex = 1;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -451,7 +452,7 @@
             this.tabProcessView.Location = new System.Drawing.Point(4, 22);
             this.tabProcessView.Name = "tabProcessView";
             this.tabProcessView.Padding = new System.Windows.Forms.Padding(3);
-            this.tabProcessView.Size = new System.Drawing.Size(1251, 607);
+            this.tabProcessView.Size = new System.Drawing.Size(1339, 561);
             this.tabProcessView.TabIndex = 1;
             this.tabProcessView.Text = "Process View";
             this.tabProcessView.UseVisualStyleBackColor = true;
@@ -459,7 +460,7 @@
             // lblUnitIP
             // 
             this.lblUnitIP.AutoSize = true;
-            this.lblUnitIP.Location = new System.Drawing.Point(1108, 552);
+            this.lblUnitIP.Location = new System.Drawing.Point(1208, 515);
             this.lblUnitIP.Name = "lblUnitIP";
             this.lblUnitIP.Size = new System.Drawing.Size(90, 13);
             this.lblUnitIP.TabIndex = 16;
@@ -473,7 +474,7 @@
             this.panel2.Controls.Add(this.txtBlowerOutTemperature);
             this.panel2.Controls.Add(this.txtHopperInTemperature);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Location = new System.Drawing.Point(691, 21);
+            this.panel2.Location = new System.Drawing.Point(791, 11);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(538, 145);
             this.panel2.TabIndex = 14;
@@ -534,7 +535,7 @@
             this.txtPercentageChange.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPercentageChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPercentageChange.ForeColor = System.Drawing.Color.Black;
-            this.txtPercentageChange.Location = new System.Drawing.Point(768, 267);
+            this.txtPercentageChange.Location = new System.Drawing.Point(786, 241);
             this.txtPercentageChange.Name = "txtPercentageChange";
             this.txtPercentageChange.Size = new System.Drawing.Size(96, 31);
             this.txtPercentageChange.TabIndex = 12;
@@ -545,7 +546,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(551, 268);
+            this.label7.Location = new System.Drawing.Point(569, 242);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(211, 29);
             this.label7.TabIndex = 11;
@@ -554,7 +555,7 @@
             // lblCaptureCount
             // 
             this.lblCaptureCount.AutoSize = true;
-            this.lblCaptureCount.Location = new System.Drawing.Point(1109, 570);
+            this.lblCaptureCount.Location = new System.Drawing.Point(1208, 532);
             this.lblCaptureCount.Name = "lblCaptureCount";
             this.lblCaptureCount.Size = new System.Drawing.Size(22, 13);
             this.lblCaptureCount.TabIndex = 10;
@@ -565,7 +566,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(454, 239);
+            this.label5.Location = new System.Drawing.Point(472, 213);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(308, 29);
             this.label5.TabIndex = 8;
@@ -577,7 +578,7 @@
             this.txtTempDelta.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtTempDelta.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTempDelta.ForeColor = System.Drawing.Color.Black;
-            this.txtTempDelta.Location = new System.Drawing.Point(768, 236);
+            this.txtTempDelta.Location = new System.Drawing.Point(786, 210);
             this.txtTempDelta.Name = "txtTempDelta";
             this.txtTempDelta.Size = new System.Drawing.Size(96, 31);
             this.txtTempDelta.TabIndex = 7;
@@ -590,7 +591,7 @@
             this.txtExtTemperature.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtExtTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtExtTemperature.ForeColor = System.Drawing.Color.Black;
-            this.txtExtTemperature.Location = new System.Drawing.Point(789, 403);
+            this.txtExtTemperature.Location = new System.Drawing.Point(891, 359);
             this.txtExtTemperature.Name = "txtExtTemperature";
             this.txtExtTemperature.Size = new System.Drawing.Size(107, 40);
             this.txtExtTemperature.TabIndex = 6;
@@ -604,7 +605,7 @@
             this.txtAmbientTemperature.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAmbientTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAmbientTemperature.ForeColor = System.Drawing.Color.Black;
-            this.txtAmbientTemperature.Location = new System.Drawing.Point(328, 402);
+            this.txtAmbientTemperature.Location = new System.Drawing.Point(373, 364);
             this.txtAmbientTemperature.Name = "txtAmbientTemperature";
             this.txtAmbientTemperature.Size = new System.Drawing.Size(122, 40);
             this.txtAmbientTemperature.TabIndex = 5;
@@ -617,11 +618,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picProcessView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.picProcessView.Image = global::CBW_4PortTemperatureGraphingTool.Properties.Resources.CBW_SystemGraphic3;
-            this.picProcessView.Location = new System.Drawing.Point(3, 9);
+            this.picProcessView.Image = ((System.Drawing.Image)(resources.GetObject("picProcessView.Image")));
+            this.picProcessView.Location = new System.Drawing.Point(0, 3);
             this.picProcessView.Name = "picProcessView";
-            this.picProcessView.Size = new System.Drawing.Size(1240, 591);
-            this.picProcessView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picProcessView.Size = new System.Drawing.Size(1339, 555);
             this.picProcessView.TabIndex = 0;
             this.picProcessView.TabStop = false;
             // 
@@ -631,13 +631,16 @@
             this.tabGraphView.Location = new System.Drawing.Point(4, 22);
             this.tabGraphView.Name = "tabGraphView";
             this.tabGraphView.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGraphView.Size = new System.Drawing.Size(1251, 607);
+            this.tabGraphView.Size = new System.Drawing.Size(1339, 561);
             this.tabGraphView.TabIndex = 0;
             this.tabGraphView.Text = "Temperatures Graph";
             this.tabGraphView.UseVisualStyleBackColor = true;
             // 
             // chart1
             // 
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.BorderlineColor = System.Drawing.Color.Black;
             this.chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             chartArea1.Name = "ChartArea1";
@@ -650,7 +653,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(1237, 591);
+            this.chart1.Size = new System.Drawing.Size(1325, 545);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
@@ -700,7 +703,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1262, 753);
+            this.ClientSize = new System.Drawing.Size(1350, 709);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;

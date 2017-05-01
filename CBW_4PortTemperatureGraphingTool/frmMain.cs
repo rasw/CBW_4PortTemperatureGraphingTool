@@ -34,6 +34,7 @@ namespace CBW_4PortTemperatureGraphingTool
         int captureCount = 0;
         string unitIPAddress = null;
         decimal hmiSampleRate = 2000;
+        bool httpErrorShown = false;
 
         Timer rollingMins;
 
@@ -487,19 +488,19 @@ namespace CBW_4PortTemperatureGraphingTool
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
-
             if (tabControl1.SelectedIndex == 0)
             {
                 EnableDisableALL(false);
                 tmrHMI.Start();
                 captureCount = 0;
+                this.MaximizeBox = false;
             }
             else
             {
                 EnableDisableALL(true);  // HMI
                 tmrHMI.Stop();
                 captureCount = 0;
+                this.MaximizeBox = true;
             }
         }
 
@@ -596,8 +597,14 @@ namespace CBW_4PortTemperatureGraphingTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There was a problem communicting with the unit." + Environment.NewLine + "Message received: " + ex.Message + Environment.NewLine +
-                    "Make sure to use a valid IP Address and Port Number as well as a Password if it is required.", "Information", MessageBoxButtons.OK);
+                if (!httpErrorShown)
+                {
+                    MessageBox.Show("There was a problem communicting with the unit." + Environment.NewLine + "Message received: " + ex.Message + Environment.NewLine +
+                        "Make sure the IP Address and Port Number as well as a Password if correct.", "Information", MessageBoxButtons.OK);
+                    Logger.WriteToLog("readTemperatures -> " + "There was a problem communicting with the unit. Make sure the IP Address and Port Number as well as a Password is correct.");
+                    httpErrorShown = true;
+                }
+
                 return 3;
             }
             return 3;
@@ -607,6 +614,7 @@ namespace CBW_4PortTemperatureGraphingTool
         {
             frmLiveLoggingSetup frmSu = new frmLiveLoggingSetup();
             frmSu.ShowDialog();
+            httpErrorShown = false;
         }
 
         private void tmrHMI_Tick(object sender, EventArgs e)
