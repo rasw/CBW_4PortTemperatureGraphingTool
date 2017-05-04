@@ -31,6 +31,9 @@ namespace CBW_4PortTemperatureGraphingTool
         string unitIPAddress = null;
         decimal hmiSampleRate = 2000;
         bool httpErrorShown = false;
+        int updateChart = 0;
+        int updateDoserInTempChart = 0;
+        bool firstRun = true;
 
         Timer rollingMins;
 
@@ -205,6 +208,8 @@ namespace CBW_4PortTemperatureGraphingTool
 
                 chart1.ChartAreas["ChartArea1"].AxisY.Minimum = minValue - 0.1;
                 chart1.ChartAreas["ChartArea1"].AxisY.Maximum = maxValue + 0.1;
+                chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
 
                 chart1.Series["Sensor1"].ChartType = SeriesChartType.Line;
                 chart1.Series["Sensor2"].ChartType = SeriesChartType.Line;
@@ -490,6 +495,8 @@ namespace CBW_4PortTemperatureGraphingTool
                 tmrHMI.Start();
                 captureCount = 0;
                 this.MaximizeBox = false;
+            
+
             }
             else
             {
@@ -615,6 +622,12 @@ namespace CBW_4PortTemperatureGraphingTool
 
         private void tmrHMI_Tick(object sender, EventArgs e)
         {
+            if(firstRun)
+            {
+                firstRun = false;
+                DrawCharts(); 
+            }
+
             int ret = readTemperatures();
             deltaTvalue = Math.Round(doserInTemperature - blowerOutTemperature, 2);
 
@@ -635,6 +648,29 @@ namespace CBW_4PortTemperatureGraphingTool
             lblCaptureCount.Text = "Readings Count: " + captureCount.ToString();
             lblUnitIP.Text = "Unit IP: " + unitIPAddress;
 
+            ++updateChart;
+            ++updateDoserInTempChart;
+
+            if (updateChart > 4)
+            {
+                chartTempDrop.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                chartTempDrop.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                chartDoserAirTemp.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                chartDoserAirTemp.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                chartBlowerOutTemp.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                chartBlowerOutTemp.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+
+                chartTempDrop.Series["Series1"].Points.AddXY(DateTime.Now.ToShortTimeString(), deltaTvalue);
+
+                if (updateDoserInTempChart > 7)
+                {
+                    chartDoserAirTemp.Series["Series1"].Points.AddY(doserInTemperature);
+                    chartBlowerOutTemp.Series["Series1"].Points.AddY(blowerOutTemperature);
+                    updateDoserInTempChart = 0;
+                }
+                updateChart = 0;
+            }
+
             string data = DateTime.Now.ToString() + "|Unit IP:" + unitIPAddress + "|Blower Out:" + blowerOutTemperature.ToString() + "|Doser In:" + doserInTemperature.ToString() + "|Cooler Temperature Drop:" + deltaTvalue.ToString() + "|Percentage Change:" + percChange.ToString();
 
             try
@@ -646,6 +682,20 @@ namespace CBW_4PortTemperatureGraphingTool
             {
                 Logger.WriteToLog("tmrHMI_Tick -> " + ex.Message);
             }
+        }
+
+        private void DrawCharts()
+        {
+            chartTempDrop.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+            chartTempDrop.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+            chartDoserAirTemp.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+            chartDoserAirTemp.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+            chartBlowerOutTemp.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+            chartBlowerOutTemp.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+
+            chartTempDrop.Series["Series1"].Points.AddXY(DateTime.Now.ToShortTimeString(), 0);
+            chartDoserAirTemp.Series["Series1"].Points.AddY(0);
+            chartBlowerOutTemp.Series["Series1"].Points.AddY(0);
         }
     }
 }

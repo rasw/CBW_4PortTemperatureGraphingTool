@@ -29,10 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSetup = new System.Windows.Forms.Button();
             this.btnRollingGraph = new System.Windows.Forms.Button();
@@ -63,6 +72,7 @@
             this.cmbDataFiles = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabProcessView = new System.Windows.Forms.TabPage();
+            this.chartTempDrop = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblUnitIP = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -84,15 +94,21 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.tmrHMI = new System.Windows.Forms.Timer(this.components);
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.chartDoserAirTemp = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartBlowerOutTemp = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabProcessView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTempDrop)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picProcessView)).BeginInit();
             this.tabGraphView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartDoserAirTemp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartBlowerOutTemp)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -439,6 +455,9 @@
             // 
             // tabProcessView
             // 
+            this.tabProcessView.Controls.Add(this.chartBlowerOutTemp);
+            this.tabProcessView.Controls.Add(this.chartDoserAirTemp);
+            this.tabProcessView.Controls.Add(this.chartTempDrop);
             this.tabProcessView.Controls.Add(this.lblUnitIP);
             this.tabProcessView.Controls.Add(this.panel2);
             this.tabProcessView.Controls.Add(this.txtPercentageChange);
@@ -457,10 +476,36 @@
             this.tabProcessView.Text = "Process View";
             this.tabProcessView.UseVisualStyleBackColor = true;
             // 
+            // chartTempDrop
+            // 
+            chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea3.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea3.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea3.Name = "ChartArea1";
+            chartArea3.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.chartTempDrop.ChartAreas.Add(chartArea3);
+            this.chartTempDrop.Location = new System.Drawing.Point(400, 11);
+            this.chartTempDrop.Name = "chartTempDrop";
+            series3.BorderWidth = 2;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Color = System.Drawing.Color.DodgerBlue;
+            series3.IsXValueIndexed = true;
+            series3.MarkerSize = 3;
+            series3.Name = "Series1";
+            series3.ShadowColor = System.Drawing.Color.WhiteSmoke;
+            this.chartTempDrop.Series.Add(series3);
+            this.chartTempDrop.Size = new System.Drawing.Size(380, 195);
+            this.chartTempDrop.TabIndex = 17;
+            title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title3.Name = "Title1";
+            title3.Text = "Temperature Drop Over Time";
+            this.chartTempDrop.Titles.Add(title3);
+            // 
             // lblUnitIP
             // 
             this.lblUnitIP.AutoSize = true;
-            this.lblUnitIP.Location = new System.Drawing.Point(1208, 515);
+            this.lblUnitIP.Location = new System.Drawing.Point(13, 11);
             this.lblUnitIP.Name = "lblUnitIP";
             this.lblUnitIP.Size = new System.Drawing.Size(90, 13);
             this.lblUnitIP.TabIndex = 16;
@@ -533,29 +578,29 @@
             // 
             this.txtPercentageChange.BackColor = System.Drawing.Color.White;
             this.txtPercentageChange.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPercentageChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPercentageChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPercentageChange.ForeColor = System.Drawing.Color.Black;
-            this.txtPercentageChange.Location = new System.Drawing.Point(786, 241);
+            this.txtPercentageChange.Location = new System.Drawing.Point(761, 241);
             this.txtPercentageChange.Name = "txtPercentageChange";
-            this.txtPercentageChange.Size = new System.Drawing.Size(96, 31);
+            this.txtPercentageChange.Size = new System.Drawing.Size(96, 28);
             this.txtPercentageChange.TabIndex = 12;
             this.txtPercentageChange.Text = "- - -";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(569, 242);
+            this.label7.Location = new System.Drawing.Point(565, 246);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(211, 29);
+            this.label7.Size = new System.Drawing.Size(190, 25);
             this.label7.TabIndex = 11;
             this.label7.Text = "Cooling Efficiency:";
             // 
             // lblCaptureCount
             // 
             this.lblCaptureCount.AutoSize = true;
-            this.lblCaptureCount.Location = new System.Drawing.Point(1208, 532);
+            this.lblCaptureCount.Location = new System.Drawing.Point(13, 28);
             this.lblCaptureCount.Name = "lblCaptureCount";
             this.lblCaptureCount.Size = new System.Drawing.Size(22, 13);
             this.lblCaptureCount.TabIndex = 10;
@@ -564,11 +609,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(472, 213);
+            this.label5.Location = new System.Drawing.Point(483, 215);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(308, 29);
+            this.label5.Size = new System.Drawing.Size(271, 25);
             this.label5.TabIndex = 8;
             this.label5.Text = "Cooling Temperature Drop:";
             // 
@@ -576,11 +621,11 @@
             // 
             this.txtTempDelta.BackColor = System.Drawing.Color.White;
             this.txtTempDelta.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtTempDelta.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTempDelta.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTempDelta.ForeColor = System.Drawing.Color.Black;
-            this.txtTempDelta.Location = new System.Drawing.Point(786, 210);
+            this.txtTempDelta.Location = new System.Drawing.Point(761, 212);
             this.txtTempDelta.Name = "txtTempDelta";
-            this.txtTempDelta.Size = new System.Drawing.Size(96, 31);
+            this.txtTempDelta.Size = new System.Drawing.Size(96, 28);
             this.txtTempDelta.TabIndex = 7;
             this.txtTempDelta.Text = "- - -";
             // 
@@ -643,16 +688,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.BorderlineColor = System.Drawing.Color.Black;
             this.chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea4.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea4);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(6, 6);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chart1.Series.Add(series4);
             this.chart1.Size = new System.Drawing.Size(1325, 545);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -699,6 +744,57 @@
             this.tmrHMI.Interval = 2000;
             this.tmrHMI.Tick += new System.EventHandler(this.tmrHMI_Tick);
             // 
+            // chartDoserAirTemp
+            // 
+            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea2.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea2.Name = "ChartArea1";
+            chartArea2.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.chartDoserAirTemp.ChartAreas.Add(chartArea2);
+            this.chartDoserAirTemp.Location = new System.Drawing.Point(911, 442);
+            this.chartDoserAirTemp.Name = "chartDoserAirTemp";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Color = System.Drawing.Color.DodgerBlue;
+            series2.IsXValueIndexed = true;
+            series2.MarkerSize = 3;
+            series2.Name = "Series1";
+            series2.ShadowColor = System.Drawing.Color.WhiteSmoke;
+            this.chartDoserAirTemp.Series.Add(series2);
+            this.chartDoserAirTemp.Size = new System.Drawing.Size(390, 108);
+            this.chartDoserAirTemp.TabIndex = 18;
+            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title2.Name = "Title1";
+            title2.Text = "Doser Air Temperature Trend";
+            this.chartDoserAirTemp.Titles.Add(title2);
+            // 
+            // chartBlowerOutTemp
+            // 
+            chartArea1.AxisY.IsMarginVisible = false;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.chartBlowerOutTemp.ChartAreas.Add(chartArea1);
+            this.chartBlowerOutTemp.Location = new System.Drawing.Point(6, 437);
+            this.chartBlowerOutTemp.Name = "chartBlowerOutTemp";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Color = System.Drawing.Color.Crimson;
+            series1.IsXValueIndexed = true;
+            series1.MarkerSize = 3;
+            series1.Name = "Series1";
+            series1.ShadowColor = System.Drawing.Color.WhiteSmoke;
+            this.chartBlowerOutTemp.Series.Add(series1);
+            this.chartBlowerOutTemp.Size = new System.Drawing.Size(390, 108);
+            this.chartBlowerOutTemp.TabIndex = 19;
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title1.Name = "Title1";
+            title1.Text = "Blower Air Temperature Trend";
+            this.chartBlowerOutTemp.Titles.Add(title1);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -708,7 +804,7 @@
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
             this.Name = "frmMain";
-            this.Text = "CBW 4 Port Temperature Module Graphing Tool...";
+            this.Text = "gr";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -718,11 +814,14 @@
             this.tabControl1.ResumeLayout(false);
             this.tabProcessView.ResumeLayout(false);
             this.tabProcessView.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTempDrop)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picProcessView)).EndInit();
             this.tabGraphView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartDoserAirTemp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartBlowerOutTemp)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -780,6 +879,10 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblUnitIP;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartTempDrop;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartDoserAirTemp;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartBlowerOutTemp;
     }
 }
 
