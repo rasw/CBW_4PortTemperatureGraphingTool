@@ -254,7 +254,6 @@ namespace CBW_4PortTemperatureGraphingTool
         {
             selectedFileFullPath = Path.Combine(selectedRootFolder, cmbDataFiles.Text);
             LoadCoreFileData(selectedFileFullPath);
-            btnRollingGraph.Enabled = true;
             btnRefresh.Enabled = true;
         }
 
@@ -445,24 +444,6 @@ namespace CBW_4PortTemperatureGraphingTool
         {
             chart1.ChartAreas[0].AxisX.ScaleView.ZoomReset(1);
             chart1.ChartAreas[0].AxisY.ScaleView.ZoomReset(1);
-        }
-
-        private void btnRollingGraph_Click(object sender, EventArgs e)
-        {
-            timerRunning = !timerRunning;
-
-            if (timerRunning)
-            {
-                rollingMins.Start();
-                btnRollingGraph.Text = "Stop Rolling Chart";
-                Application.DoEvents();
-            }
-            else
-            {
-                rollingMins.Stop();
-                btnRollingGraph.Text = "Rolling 1 Hour";
-                Application.DoEvents();
-            }
         }
 
         void EnableDisableALL(bool EnableControls)
@@ -682,6 +663,8 @@ namespace CBW_4PortTemperatureGraphingTool
             {
                 Logger.WriteToLog("tmrHMI_Tick -> " + ex.Message);
             }
+
+            Application.DoEvents();
         }
 
         private void DrawCharts()

@@ -29,22 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea25 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series25 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title19 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea26 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series26 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea27 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series27 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title20 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea28 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series28 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title21 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSetup = new System.Windows.Forms.Button();
-            this.btnRollingGraph = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -117,7 +116,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
             this.panel1.Controls.Add(this.btnSetup);
-            this.panel1.Controls.Add(this.btnRollingGraph);
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Controls.Add(this.btnRefresh);
             this.panel1.Controls.Add(this.groupBox2);
@@ -130,32 +128,20 @@
             // btnSetup
             // 
             this.btnSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSetup.Location = new System.Drawing.Point(1091, 63);
+            this.btnSetup.Location = new System.Drawing.Point(989, 18);
             this.btnSetup.Name = "btnSetup";
-            this.btnSetup.Size = new System.Drawing.Size(105, 37);
+            this.btnSetup.Size = new System.Drawing.Size(105, 84);
             this.btnSetup.TabIndex = 5;
             this.btnSetup.Text = "Setup";
             this.btnSetup.UseVisualStyleBackColor = true;
             this.btnSetup.Click += new System.EventHandler(this.btnSetup_Click);
             // 
-            // btnRollingGraph
-            // 
-            this.btnRollingGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRollingGraph.Enabled = false;
-            this.btnRollingGraph.Location = new System.Drawing.Point(1090, 17);
-            this.btnRollingGraph.Name = "btnRollingGraph";
-            this.btnRollingGraph.Size = new System.Drawing.Size(105, 38);
-            this.btnRollingGraph.TabIndex = 4;
-            this.btnRollingGraph.Text = "Rolling 1 Hour";
-            this.btnRollingGraph.UseVisualStyleBackColor = true;
-            this.btnRollingGraph.Click += new System.EventHandler(this.btnRollingGraph_Click);
-            // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(1219, 62);
+            this.btnClose.Location = new System.Drawing.Point(1189, 62);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(105, 38);
+            this.btnClose.Size = new System.Drawing.Size(137, 38);
             this.btnClose.TabIndex = 3;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -165,9 +151,9 @@
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.Enabled = false;
-            this.btnRefresh.Location = new System.Drawing.Point(1219, 16);
+            this.btnRefresh.Location = new System.Drawing.Point(1189, 16);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(105, 38);
+            this.btnRefresh.Size = new System.Drawing.Size(137, 38);
             this.btnRefresh.TabIndex = 2;
             this.btnRefresh.Text = "Save Graph";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -478,29 +464,29 @@
             // 
             // chartTempDrop
             // 
-            chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea3.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea3.BorderColor = System.Drawing.Color.Gainsboro;
-            chartArea3.Name = "ChartArea1";
-            chartArea3.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.chartTempDrop.ChartAreas.Add(chartArea3);
+            chartArea25.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea25.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea25.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea25.Name = "ChartArea1";
+            chartArea25.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.chartTempDrop.ChartAreas.Add(chartArea25);
             this.chartTempDrop.Location = new System.Drawing.Point(400, 11);
             this.chartTempDrop.Name = "chartTempDrop";
-            series3.BorderWidth = 2;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Color = System.Drawing.Color.DodgerBlue;
-            series3.IsXValueIndexed = true;
-            series3.MarkerSize = 3;
-            series3.Name = "Series1";
-            series3.ShadowColor = System.Drawing.Color.WhiteSmoke;
-            this.chartTempDrop.Series.Add(series3);
+            series25.BorderWidth = 2;
+            series25.ChartArea = "ChartArea1";
+            series25.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series25.Color = System.Drawing.Color.DodgerBlue;
+            series25.IsXValueIndexed = true;
+            series25.MarkerSize = 3;
+            series25.Name = "Series1";
+            series25.ShadowColor = System.Drawing.Color.WhiteSmoke;
+            this.chartTempDrop.Series.Add(series25);
             this.chartTempDrop.Size = new System.Drawing.Size(380, 195);
             this.chartTempDrop.TabIndex = 17;
-            title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title3.Name = "Title1";
-            title3.Text = "Temperature Drop Over Time";
-            this.chartTempDrop.Titles.Add(title3);
+            title19.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title19.Name = "Title1";
+            title19.Text = "Temperature Drop Over Time";
+            this.chartTempDrop.Titles.Add(title19);
             // 
             // lblUnitIP
             // 
@@ -519,9 +505,9 @@
             this.panel2.Controls.Add(this.txtBlowerOutTemperature);
             this.panel2.Controls.Add(this.txtHopperInTemperature);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Location = new System.Drawing.Point(791, 11);
+            this.panel2.Location = new System.Drawing.Point(821, 11);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(538, 145);
+            this.panel2.Size = new System.Drawing.Size(508, 127);
             this.panel2.TabIndex = 14;
             // 
             // label4
@@ -530,7 +516,7 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(85, 22);
+            this.label4.Location = new System.Drawing.Point(62, 17);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(305, 33);
             this.label4.TabIndex = 4;
@@ -543,9 +529,9 @@
             this.txtBlowerOutTemperature.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBlowerOutTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBlowerOutTemperature.ForeColor = System.Drawing.Color.Black;
-            this.txtBlowerOutTemperature.Location = new System.Drawing.Point(410, 73);
+            this.txtBlowerOutTemperature.Location = new System.Drawing.Point(373, 61);
             this.txtBlowerOutTemperature.Name = "txtBlowerOutTemperature";
-            this.txtBlowerOutTemperature.Size = new System.Drawing.Size(130, 33);
+            this.txtBlowerOutTemperature.Size = new System.Drawing.Size(113, 33);
             this.txtBlowerOutTemperature.TabIndex = 1;
             this.txtBlowerOutTemperature.Text = "- - -";
             this.txtBlowerOutTemperature.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -556,9 +542,9 @@
             this.txtHopperInTemperature.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtHopperInTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHopperInTemperature.ForeColor = System.Drawing.Color.Black;
-            this.txtHopperInTemperature.Location = new System.Drawing.Point(410, 22);
+            this.txtHopperInTemperature.Location = new System.Drawing.Point(373, 17);
             this.txtHopperInTemperature.Name = "txtHopperInTemperature";
-            this.txtHopperInTemperature.Size = new System.Drawing.Size(130, 33);
+            this.txtHopperInTemperature.Size = new System.Drawing.Size(113, 33);
             this.txtHopperInTemperature.TabIndex = 2;
             this.txtHopperInTemperature.Text = "- - -";
             // 
@@ -568,7 +554,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(85, 73);
+            this.label3.Location = new System.Drawing.Point(62, 59);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(305, 33);
             this.label3.TabIndex = 3;
@@ -688,16 +674,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.BorderlineColor = System.Drawing.Color.Black;
             this.chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea4.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea4);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea26.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea26);
+            legend7.Name = "Legend1";
+            this.chart1.Legends.Add(legend7);
             this.chart1.Location = new System.Drawing.Point(6, 6);
             this.chart1.Name = "chart1";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chart1.Series.Add(series4);
+            series26.ChartArea = "ChartArea1";
+            series26.Legend = "Legend1";
+            series26.Name = "Series1";
+            this.chart1.Series.Add(series26);
             this.chart1.Size = new System.Drawing.Size(1325, 545);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -746,54 +732,54 @@
             // 
             // chartDoserAirTemp
             // 
-            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea2.BorderColor = System.Drawing.Color.Gainsboro;
-            chartArea2.Name = "ChartArea1";
-            chartArea2.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.chartDoserAirTemp.ChartAreas.Add(chartArea2);
+            chartArea27.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea27.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea27.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea27.Name = "ChartArea1";
+            chartArea27.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.chartDoserAirTemp.ChartAreas.Add(chartArea27);
             this.chartDoserAirTemp.Location = new System.Drawing.Point(911, 442);
             this.chartDoserAirTemp.Name = "chartDoserAirTemp";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Color = System.Drawing.Color.DodgerBlue;
-            series2.IsXValueIndexed = true;
-            series2.MarkerSize = 3;
-            series2.Name = "Series1";
-            series2.ShadowColor = System.Drawing.Color.WhiteSmoke;
-            this.chartDoserAirTemp.Series.Add(series2);
+            series27.ChartArea = "ChartArea1";
+            series27.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series27.Color = System.Drawing.Color.DodgerBlue;
+            series27.IsXValueIndexed = true;
+            series27.MarkerSize = 3;
+            series27.Name = "Series1";
+            series27.ShadowColor = System.Drawing.Color.WhiteSmoke;
+            this.chartDoserAirTemp.Series.Add(series27);
             this.chartDoserAirTemp.Size = new System.Drawing.Size(390, 108);
             this.chartDoserAirTemp.TabIndex = 18;
-            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title2.Name = "Title1";
-            title2.Text = "Doser Air Temperature Trend";
-            this.chartDoserAirTemp.Titles.Add(title2);
+            title20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title20.Name = "Title1";
+            title20.Text = "Doser Air Temperature Trend";
+            this.chartDoserAirTemp.Titles.Add(title20);
             // 
             // chartBlowerOutTemp
             // 
-            chartArea1.AxisY.IsMarginVisible = false;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.BorderColor = System.Drawing.Color.Gainsboro;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.chartBlowerOutTemp.ChartAreas.Add(chartArea1);
+            chartArea28.AxisY.IsMarginVisible = false;
+            chartArea28.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea28.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea28.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea28.Name = "ChartArea1";
+            chartArea28.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.chartBlowerOutTemp.ChartAreas.Add(chartArea28);
             this.chartBlowerOutTemp.Location = new System.Drawing.Point(6, 437);
             this.chartBlowerOutTemp.Name = "chartBlowerOutTemp";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Color = System.Drawing.Color.Crimson;
-            series1.IsXValueIndexed = true;
-            series1.MarkerSize = 3;
-            series1.Name = "Series1";
-            series1.ShadowColor = System.Drawing.Color.WhiteSmoke;
-            this.chartBlowerOutTemp.Series.Add(series1);
+            series28.ChartArea = "ChartArea1";
+            series28.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series28.Color = System.Drawing.Color.Crimson;
+            series28.IsXValueIndexed = true;
+            series28.MarkerSize = 3;
+            series28.Name = "Series1";
+            series28.ShadowColor = System.Drawing.Color.WhiteSmoke;
+            this.chartBlowerOutTemp.Series.Add(series28);
             this.chartBlowerOutTemp.Size = new System.Drawing.Size(390, 108);
             this.chartBlowerOutTemp.TabIndex = 19;
-            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title1.Name = "Title1";
-            title1.Text = "Blower Air Temperature Trend";
-            this.chartBlowerOutTemp.Titles.Add(title1);
+            title21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title21.Name = "Title1";
+            title21.Text = "Blower Air Temperature Trend";
+            this.chartBlowerOutTemp.Titles.Add(title21);
             // 
             // frmMain
             // 
@@ -804,7 +790,7 @@
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
             this.Name = "frmMain";
-            this.Text = "gr";
+            this.Text = "Temperature Module Monitoring And Logging...";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -858,7 +844,6 @@
         private System.Windows.Forms.RadioButton rdoFilterLast3weeks;
         private System.Windows.Forms.RadioButton rdoFilterLast2weeks;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.Button btnRollingGraph;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.TextBox txtBlowerOutTemperature;
         private System.Windows.Forms.PictureBox picProcessView;
